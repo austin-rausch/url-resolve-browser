@@ -8,7 +8,7 @@
     "url" : "https://github.com/austin-rausch/url-resolve-browser"
   },
   "scripts": {
-    "test": "mocha ../test/test.js"
+    "test": "mocha ./test/test.js"
   },
   "author": "Austin Rausch",
   "license": "MIT"

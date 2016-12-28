@@ -80,6 +80,11 @@ describe('url resolve test', function () {
         '  http://test.com?query#hash    ',
         '   path?query#hash',
         'http://test.com/path?query#hash'
+      ),
+      new TestCase(
+        'http://nah.com',
+        'http://test.com/path/file.html',
+        'http://test.com/path/file.html'
       )
     ];
     tests.forEach((testCase) => {

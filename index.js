@@ -122,6 +122,14 @@ function _relativeParse (relative) {
   return resultObject;
 }
 
+function _shouldAddSlash (url) {
+  const protocolIndex = url.indexOf('//') + 2;
+  const noPath = !(url.includes('/', protocolIndex));
+  const noQuery = !(url.includes('?', protocolIndex));
+  const noHash = !(url.includes('#', protocolIndex));
+  return (noPath && noQuery && noHash);
+}
+
 /*
 * PRECONDITION: Base is a fully qualified URL. e.g. http://example.com/
 * optional: path, query or hash
@@ -138,8 +146,11 @@ function urlResolve (base, relative) {
 
   // if base is empty, assume relative is a net path.
   if (base === '') {
-    // add / at end if not present
-    return _addSlash(relative);
+    if (_shouldAddSlash(relative)) {
+      return _addSlash(relative);
+    }
+    // add / at end if not present if is only the host
+    return relative;
   }
   const baseObj = _baseParse(base);
   // relative is empty, return base minus hash
@@ -155,7 +166,10 @@ function urlResolve (base, relative) {
   const relativeObj = _relativeParse(relative);
 
   if (relativeObj.netPath) { // relative is full qualified URL
-    return _addSlash(relativeObj.href);
+    if (_shouldAddSlash(relativeObj.href)) {
+      return _addSlash(relativeObj.href);
+    }
+    return relativeObj.href;
   } else if (relativeObj.absolutePath) { // relative is an absolute path
     const {path, query, hash} = relativeObj;
     return baseObj.host + _pathResolve(path) + query + hash;
