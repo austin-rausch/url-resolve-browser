@@ -1,0 +1,11 @@
+{
+  "name": "url-resolve-browser",
+  "version": "1.0.0",
+  "description": "resolve urls in the browser like url.resolve in node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ../test/test.js"
+  },
+  "author": "Austin Rausch",
+  "license": "MIT"
+}
