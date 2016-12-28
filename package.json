@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "resolve urls in the browser like url.resolve in node.js.",
   "main": "index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/austin-rausch/url-resolve-browser"
+  },
   "scripts": {
     "test": "mocha ../test/test.js"
   },
