@@ -22,11 +22,13 @@ function _pathResolve (path) {
   // let segmentCount = 0; // number of segments that have been passed
   let resultArray = [];
   pathSplit.forEach((current, index) => {
-    let rli = resultArray.length - 1; // resultArray last index
-    if (current === '..') {
-      resultArray = resultArray.slice(rli-1, rli); // remove previous
-    } else if (current !== '') {
-      resultArray.push(current);
+    // skip occurances of '.'
+    if (current !== '.') {
+      if (current === '..') {
+        resultArray.pop(); // remove previous
+      } else if (current !== '') {
+        resultArray.push(current);
+      }
     }
   });
   return '/' + resultArray.join('/');
