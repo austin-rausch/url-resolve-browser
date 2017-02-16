@@ -19,6 +19,7 @@ function _pathResolve (path) {
   if (pathSplit[0] === '') {
     pathSplit = pathSplit.slice(1);
   }
+
   // let segmentCount = 0; // number of segments that have been passed
   let resultArray = [];
   pathSplit.forEach((current, index) => {
@@ -171,23 +172,35 @@ function urlResolve (base, relative) {
     if (_shouldAddSlash(relativeObj.href)) {
       return _addSlash(relativeObj.href);
     }
+
     return relativeObj.href;
   } else if (relativeObj.absolutePath) { // relative is an absolute path
     const {path, query, hash} = relativeObj;
+
     return baseObj.host + _pathResolve(path) + query + hash;
   } else if (relativeObj.relativePath) { // relative is a relative path
     const {path, query, hash} = relativeObj;
+
     let basePath = baseObj.path;
-    // remove last segment if no slash at end
-    basePath = basePath.substring(0, basePath.lastIndexOf('/'));
     let resultString = baseObj.host;
-    const resolvePath = _pathResolve(basePath + '/' + path);
+
+    let resolvePath;
+
+    if (path.length === 0) {
+      resolvePath = basePath;
+    } else {
+      // remove last segment if no slash at end
+      basePath = basePath.substring(0, basePath.lastIndexOf('/'));
+      resolvePath = _pathResolve(basePath + '/' + path);
+    }
+
     // if result is just the base host, add /
     if ((resolvePath === '') && (!query) && (!hash)) {
       resultString += '/';
     } else {
       resultString += resolvePath + query + hash;
     }
+
     return resultString;
   }
 }

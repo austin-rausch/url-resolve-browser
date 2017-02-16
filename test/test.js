@@ -76,6 +76,16 @@ describe('url resolve test', function () {
       'https://agileui.com/demo/monarch/demo/admin-template/index.html',
       '../../assets/images/../images/icons/apple-touch-icon-114-precomposed.png',
       'https://agileui.com/demo/monarch/assets/images/icons/apple-touch-icon-114-precomposed.png'
+    ),
+    new TestCase(
+      'https://agileui.com/demo/monarch/demo/admin-angular/index.html#/',
+      '#test',
+      'https://agileui.com/demo/monarch/demo/admin-angular/index.html#test'
+    ),
+    new TestCase(
+      'https://agileui.com/demo/monarch/demo/admin-angular/index.html#/',
+      '../../assets/image-resources/gravatar.jpg',
+      'https://agileui.com/demo/monarch/assets/image-resources/gravatar.jpg'
     )
   ];
 
