@@ -40,7 +40,8 @@ function _baseParse (base) {
   const resultObject = {
     host: '',
     path: '',
-    query: ''
+    query: '',
+    protocol: ''
   };
 
   let path = base;
@@ -49,6 +50,9 @@ function _baseParse (base) {
   if (protocolEndIndex === -1) {
     throw new Error('Error, protocol is not specified');
   }
+
+  resultObject.protocol = path.substring(0, protocolEndIndex);
+
   protocolEndIndex += 2; // add two to pass double slash
 
   const pathIndex = base.indexOf('/', protocolEndIndex);
@@ -133,6 +137,10 @@ function _shouldAddSlash (url) {
   return (noPath && noQuery && noHash);
 }
 
+function _shouldAddProtocol (url) {
+  return url.startsWith('//');
+}
+
 /*
 * PRECONDITION: Base is a fully qualified URL. e.g. http://example.com/
 * optional: path, query or hash
@@ -169,6 +177,10 @@ function urlResolve (base, relative) {
   const relativeObj = _relativeParse(relative);
 
   if (relativeObj.netPath) { // relative is full qualified URL
+    if (_shouldAddProtocol(relativeObj.href)) {
+      relativeObj.href = baseObj.protocol + relativeObj.href;
+    }
+
     if (_shouldAddSlash(relativeObj.href)) {
       return _addSlash(relativeObj.href);
     }

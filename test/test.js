@@ -86,6 +86,11 @@ describe('url resolve test', function () {
       'https://agileui.com/demo/monarch/demo/admin-angular/index.html#/',
       '../../assets/image-resources/gravatar.jpg',
       'https://agileui.com/demo/monarch/assets/image-resources/gravatar.jpg'
+    ),
+    new TestCase(
+      'https://twitch.tv',
+      '//web-cdn.twnv.net/assets/application.css',
+      'https://web-cdn.twnv.net/assets/application.css'
     )
   ];
 
