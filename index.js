@@ -80,6 +80,11 @@ function _baseParse (base) {
 
   return resultObject;
 }
+
+// https://tools.ietf.org/html/rfc3986#section-3.1
+const _scheme = '[a-z][a-z0-9+.-]*'; // ALPHA *( ALPHA / DIGIT / "+" / "-" / "."  )]
+const _isAbsolute = new RegExp(`^(${_scheme}:)?//`, 'i');
+
 // parses a relative url string into an object containing the href,
 // hash, query and whether it is a net path, absolute path or relative path
 function _relativeParse (relative) {
@@ -93,8 +98,7 @@ function _relativeParse (relative) {
   };
   // check for protocol
   // if protocol exists, is net path (absolute URL)
-  const protocolIndex = relative.indexOf('//');
-  if (protocolIndex !== -1) {
+  if (_isAbsolute.test(relative)) {
     resultObject.netPath = true;
     // return, in this case the relative is the resolved url, no need to parse.
     return resultObject;
