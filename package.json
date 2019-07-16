@@ -1,6 +1,6 @@
 {
   "name": "url-resolve-browser",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "resolve urls in the browser like url.resolve in node.js.",
   "main": "index.js",
   "repository": {
