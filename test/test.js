@@ -91,6 +91,31 @@ describe('url resolve test', function () {
       'https://twitch.tv',
       '//web-cdn.twnv.net/assets/application.css',
       'https://web-cdn.twnv.net/assets/application.css'
+    ),
+    new TestCase(
+      'http://example.com/aaa#/foo/',
+      '#/foo//bar',
+      'http://example.com/aaa#/foo//bar'
+    ),
+    new TestCase(
+      'http://example.com/aaa',
+      '?url=/foo//bar',
+      'http://example.com/aaa?url=/foo//bar'
+    ),
+    new TestCase(
+      'http://example.com/aaa',
+      '/a//b',
+      'http://example.com/a/b'
+    ),
+    new TestCase(
+      'http://example.com/aaa/bbb',
+      'a//b',
+      'http://example.com/aaa/a/b'
+    ),
+    new TestCase(
+      'http://example.com/aaa',
+      '?url=http://foo.com/bar',
+      'http://example.com/aaa?url=http://foo.com/bar'
     )
   ];
 
@@ -123,7 +148,7 @@ describe('url resolve test', function () {
   });
 
   tests.forEach((testCase) => {
-    let {base, relative, expectedResult, actualResult} = testCase;
+    let {base, relative, expectedResult} = testCase;
     let testDescription = `should resolve base url: ${base}\n` +
       `    with relative url: ${relative}\n` +
       `    to ${expectedResult}`;
