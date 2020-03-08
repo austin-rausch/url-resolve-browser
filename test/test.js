@@ -38,6 +38,11 @@ describe('url resolve test', function () {
       'http://test.com/absolute/path'
     ),
     new TestCase(
+      'http://test.com/path/with/a',
+      '/trailing/slash/',
+      'http://test.com/trailing/slash/'
+    ),
+    new TestCase(
       'http://test.com/example/path/index.html',
       'relative/path',
       'http://test.com/example/path/relative/path'
