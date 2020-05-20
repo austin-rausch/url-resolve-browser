@@ -23,6 +23,11 @@ describe('url resolve test', function () {
       'http://test.com/'
     ),
     new TestCase(
+      '#yolo',
+      'http://test.com',
+      'http://test.com/'
+    ),
+    new TestCase(
       'http://test.com/path?query#hash',
       '',
       'http://test.com/path?query'
@@ -148,7 +153,7 @@ describe('url resolve test', function () {
   });
 
   it('should throw error if the first argument is not a net path', function () {
-    expect(thisUrlResolve.bind(undefined,'#yolo', '/foo/bar')).to.throw(Error);
+    expect(thisUrlResolve.bind(undefined, '#yolo', '/foo/bar')).to.throw(Error);
     expect(thisUrlResolve.bind(undefined, 'http:/nope.com', '')).to.throw(Error);
   });
 
